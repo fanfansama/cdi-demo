@@ -2,6 +2,7 @@ package fr.talanlab.cdidemo.jpa.service;
 
 
 import fr.talanlab.cdidemo.jpa.model.AttendeeJpa;
+import fr.talanlab.cdidemo.jpa.model.SlotJpa;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
@@ -19,7 +20,7 @@ import static java.util.stream.Collectors.toMap;
 
 @ApplicationScoped
 public class SlotService {
-    @PersistenceContext(unitName = "devoxx")
+    @PersistenceContext(unitName = "talanLabUnit")
     private EntityManager em;
 
     @Inject
@@ -27,8 +28,8 @@ public class SlotService {
     private Principal principal;
 
     @Transactional
-    public AttendeeJpa.SlotJpa addAttendeeToSlot(final String slotId) {
-        final AttendeeJpa.SlotJpa slot = findById(slotId);
+    public SlotJpa addAttendeeToSlot(final String slotId) {
+        final SlotJpa slot = findById(slotId);
         if (slot == null) {
             return null;
         }
@@ -46,8 +47,8 @@ public class SlotService {
     }
 
     @Transactional
-    public AttendeeJpa.SlotJpa removeAttendeeFromSlot(final String slotId) {
-        final AttendeeJpa.SlotJpa slot = findById(slotId);
+    public SlotJpa removeAttendeeFromSlot(final String slotId) {
+        final SlotJpa slot = findById(slotId);
         if (slot == null) {
             return null;
         }
@@ -62,11 +63,11 @@ public class SlotService {
     }
 
     @Transactional
-    public AttendeeJpa.SlotJpa findById(final String id) {
-        return em.find(AttendeeJpa.SlotJpa.class, id);
+    public SlotJpa findById(final String id) {
+        return em.find(SlotJpa.class, id);
     }
 
-    public int count(final AttendeeJpa.SlotJpa slot) {
+    public int count(final SlotJpa slot) {
         return em.createNamedQuery("Attendee.countBySlot", Number.class)
                 .setParameter("slot", slot)
                 .getSingleResult()
@@ -89,7 +90,7 @@ public class SlotService {
                 .collect(toMap(tuple -> (String) tuple[0], tuple -> Number.class.cast(tuple[1]).intValue()));
     }
 
-    private boolean isAttendeeParticipatingToSlot(final AttendeeJpa.SlotJpa slot, final AttendeeJpa attendee) {
+    private boolean isAttendeeParticipatingToSlot(final SlotJpa slot, final AttendeeJpa attendee) {
         return em.createNamedQuery("Attendee.findByNameAndSlot", Number.class)
                 .setParameter("name", attendee.getName())
                 .setParameter("slot", slot)

@@ -10,7 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 @Path("attendee")
@@ -22,10 +24,22 @@ public class AttendeeResource {
     @Inject
     private Principal principal;
 
+    @Inject
+    private Logger LOG;
+
     @GET
     @Path("slots")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<String> getSlotIds() {
+
+        LOG.info("find : " + principal.getName());
         return slotService.getAllocatedSlotIdsForAttendee(principal.getName());
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<String> getAttendies() {
+        LOG.info("getAttendies " + principal.getName());
+        return Arrays.asList("plop", "plop");
     }
 }

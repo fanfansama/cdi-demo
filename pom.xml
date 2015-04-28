@@ -9,7 +9,11 @@
     <artifactId>cdi-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>${artifactId}</name>
+    <name>${project.artifactId}</name>
+
+    <prerequisites>
+        <maven>3.2.1</maven>
+    </prerequisites>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,7 +43,6 @@
             <scope>provided</scope>
         </dependency>
 
-
         <!-- TEST -->
         <dependency>
             <groupId>junit</groupId>
@@ -56,6 +59,14 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/filteringResources</directory>
+                <filtering>false</filtering>
+                <targetPath>${project.build.directory}/apache-tomee-embedded/conf/</targetPath>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -119,36 +130,15 @@
                 <artifactId>tomee-embedded-maven-plugin</artifactId>
                 <version>${tomee.version}</version>
                 <configuration>
+                    <context>${project.basedir}/src/conf/context.xml</context>
                     <classpathAsWar>true</classpathAsWar>
                     <context>/</context>
-                    <!--	<users>
-                            <devoxx>devoxx</devoxx>
-                            <devoxx2>devoxx2</devoxx2>
-                        </users>-->
+                    <users>
+                        <dev>dev</dev>
+                    </users>
                 </configuration>
             </plugin>
-            <!--	<plugin>
-                    <groupId>org.jsonschema2pojo</groupId>
-                    <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                    <version>0.4.8</version>
-                    <configuration>
-                        <sourceDirectory>${basedir}/src/main/json-schema/</sourceDirectory>
-                        <outputDirectory>${project.build.directory}/generated-sources/json</outputDirectory>
-                        <targetPackage>fr.devoxx.javaeeasy.models.cfp</targetPackage>
-                        <annotationStyle>none</annotationStyle>
-                        <useLongIntegers>true</useLongIntegers>
-                        <initializeCollections>true</initializeCollections>
-                        <includeConstructors>true</includeConstructors>
-                        <usePrimitives>true</usePrimitives>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>-->
+
         </plugins>
     </build>
 
@@ -162,5 +152,6 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
 
 </project>

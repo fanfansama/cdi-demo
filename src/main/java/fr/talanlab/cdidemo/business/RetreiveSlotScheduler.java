@@ -2,7 +2,11 @@ package fr.talanlab.cdidemo.business;
 
 
 import javax.annotation.PostConstruct;
-import javax.ejb.*;
+import javax.ejb.Lock;
+import javax.ejb.Schedule;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.ejb.TransactionAttribute;
 import javax.inject.Inject;
 import java.util.logging.Logger;
 
