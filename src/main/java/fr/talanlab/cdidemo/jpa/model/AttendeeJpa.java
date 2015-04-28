@@ -14,6 +14,9 @@ import java.util.HashSet;
 @Entity
 @NamedQueries({
         @NamedQuery(
+                name = "Attendee.findAll",
+                query = "select a from AttendeeJpa a"),
+        @NamedQuery(
                 name = "Attendee.findByName",
                 query = "select a from AttendeeJpa a where a.name = :name"),
         @NamedQuery(

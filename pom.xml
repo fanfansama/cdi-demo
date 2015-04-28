@@ -25,7 +25,11 @@
         <tomee.version>2.0.0-SNAPSHOT</tomee.version>
         <openejb.version>5.0.0-SNAPSHOT</openejb.version>
 
+        <commons-lang.version>2.4</commons-lang.version>
+
         <junit.version>4.12</junit.version>
+
+        <open-jpa.plugin>2.3.0</open-jpa.plugin>
 
     </properties>
 
@@ -39,7 +43,7 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.4</version>
+            <version>${commons-lang.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -59,11 +63,11 @@
     </dependencies>
 
     <build>
+
         <resources>
             <resource>
-                <directory>${project.basedir}/src/main/filteringResources</directory>
-                <filtering>false</filtering>
-                <targetPath>${project.build.directory}/apache-tomee-embedded/conf/</targetPath>
+                <directory>${project.basedir}/src/conf</directory>
+                <targetPath>${project.build.directory}/apache-tomee-embedded/conf</targetPath>
             </resource>
         </resources>
 
@@ -102,7 +106,7 @@
             <plugin>
                 <groupId>org.apache.openjpa</groupId>
                 <artifactId>openjpa-maven-plugin</artifactId>
-                <version>2.3.0</version>
+                <version>${open-jpa.plugin}</version>
                 <executions>
                     <execution>
                         <id>enhancer</id>
@@ -130,19 +134,44 @@
                 <artifactId>tomee-embedded-maven-plugin</artifactId>
                 <version>${tomee.version}</version>
                 <configuration>
-                    <context>${project.basedir}/src/conf/context.xml</context>
+                    <context>${project.basedir}/src/conf</context>
                     <classpathAsWar>true</classpathAsWar>
                     <context>/</context>
                     <users>
                         <dev>dev</dev>
                     </users>
+                    <inlinedTomEEXml>
+                        <tomee>
+                            <Resource id="movieDatabase" type="DataSource">
+                                JdbcDriver = com.mysql.jdbc.Driver
+                                JdbcUrl = jdbc:mysql://localhost:3306/talanlab?createDatabaseIfNotExist=true
+                                Username=root
+                                Password=
+                            </Resource>
+
+                            <Resource id="movieDatabaseUnmanaged" type="DataSource">
+                                JdbcDriver = com.mysql.jdbc.Driver
+                                JdbcUrl = jdbc:mysql://localhost:3306/talanlab?createDatabaseIfNotExist=true
+                                username=root
+                                password=
+                                JtaManaged = false
+                            </Resource>
+                        </tomee>
+                    </inlinedTomEEXml>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.6</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
         </plugins>
     </build>
 
-
+    <!-- http://tomee.apache.org/examples-trunk/index.html -->
     <pluginRepositories>
         <pluginRepository>
             <id>repository.apache.org</id>
@@ -153,5 +182,14 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <repositories>
+        <repository>
+            <id>apache</id>
+            <url>https://repository.apache.org/content/groups/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 </project>

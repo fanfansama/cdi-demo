@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
@@ -103,6 +104,15 @@ public class SlotService {
             return em.createNamedQuery("Attendee.findByName", AttendeeJpa.class)
                     .setParameter("name", name)
                     .getSingleResult();
+        } catch (final NoResultException nre) {
+            return null;
+        }
+    }
+
+    public List<AttendeeJpa> findAll() {
+        try {
+            return em.createNamedQuery("Attendee.findAll", AttendeeJpa.class)
+                    .getResultList();
         } catch (final NoResultException nre) {
             return null;
         }
