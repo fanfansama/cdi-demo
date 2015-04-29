@@ -6,8 +6,11 @@ import fr.talanlab.cdidemo.jpa.model.AttendeeJpa;
 import fr.talanlab.cdidemo.jpa.model.SlotJpa;
 import fr.talanlab.cdidemo.models.event.SlotUpdateEvent;
 import fr.talanlab.cdidemo.producers.LoggerProducer;
+import org.apache.openejb.core.security.SecurityServiceImpl;
 import org.apache.openejb.junit.ApplicationComposer;
+import org.apache.openejb.spi.SecurityService;
 import org.apache.openejb.testing.Classes;
+import org.apache.openejb.testing.Component;
 import org.apache.openejb.testing.ContainerProperties;
 import org.apache.openejb.testing.Descriptor;
 import org.apache.openejb.testing.Descriptors;
@@ -19,8 +22,11 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import java.security.Principal;
+import java.util.Date;
 import java.util.Map;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -51,17 +57,17 @@ public class SlotServiceTest {
     // @{see securityService()}
     private String name;
 
-    /*   @Test
-       public void persistenceOnEvent() {
-           final Slot conference = new Slot();
-           conference.setSlotId("slot_" + new Date());
-           conferencesEvent.fire(new SlotUpdateEvent(asList(conference)));
+    @Test
+    public void persistenceOnEvent() {
+        final SlotJpa conference = new SlotJpa();
+        conference.setId("slot_" + new Date());
+        conferencesEvent.fire(new SlotUpdateEvent(asList(conference)));
 
-           final SlotJpa slot = em.find(SlotJpa.class, conference.getSlotId());
-           assertNotNull(slot);
-           assertEquals(0, slotService.count(slot));
+        final SlotJpa slot = em.find(SlotJpa.class, conference.getId());
+        assertNotNull(slot);
+        assertEquals(0, slotService.count(slot));
        }
-   */
+
     @Test
     public void increment() throws Exception {
         {
@@ -146,7 +152,7 @@ public class SlotServiceTest {
 
     }
 
- /*   @Component
+    @Component
     public SecurityService securityService() {
         return new SecurityServiceImpl() {
             @Override
@@ -156,5 +162,5 @@ public class SlotServiceTest {
         };
     }
 
-    */
+
 }

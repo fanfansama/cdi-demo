@@ -134,7 +134,6 @@
                 <artifactId>tomee-embedded-maven-plugin</artifactId>
                 <version>${tomee.version}</version>
                 <configuration>
-                    <context>${project.basedir}/src/conf</context>
                     <classpathAsWar>true</classpathAsWar>
                     <context>/</context>
                     <users>

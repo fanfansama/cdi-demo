@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -28,18 +29,31 @@ public class SlotService {
     @RequestScoped
     private Principal principal;
 
+    @Inject
+    private Logger LOG;
+
+    @Transactional
+    public SlotJpa save(final SlotJpa slot) {
+        em.persist(slot);
+        return slot;
+    }
+
     @Transactional
     public SlotJpa addAttendeeToSlot(final String slotId) {
-        final SlotJpa slot = findById(slotId);
+        SlotJpa slot = findById(slotId);
         if (slot == null) {
-            return null;
+            LOG.info("create " + slotId);
+            slot = new SlotJpa(slotId);
+            slot = save(slot);
         }
 
         AttendeeJpa attendee = findAttendee(principal.getName());
         if (attendee == null) {
+            LOG.info("create attendee with " + principal.getName());
             attendee = createAttendee();
         }
         if (isAttendeeParticipatingToSlot(slot, attendee)) {
+            LOG.info("Attendee Participating To Slot");
             return slot;
         }
 
@@ -109,9 +123,9 @@ public class SlotService {
         }
     }
 
-    public List<AttendeeJpa> findAll() {
+    public List<SlotJpa> findAll() {
         try {
-            return em.createNamedQuery("Attendee.findAll", AttendeeJpa.class)
+            return em.createNamedQuery("Slot.findAll", SlotJpa.class)
                     .getResultList();
         } catch (final NoResultException nre) {
             return null;
