@@ -137,7 +137,7 @@
                     <classpathAsWar>true</classpathAsWar>
                     <context>/</context>
                     <users>
-                        <dev>dev</dev>
+                        <dev>pass</dev>
                     </users>
                     <inlinedTomEEXml>
                         <tomee>
