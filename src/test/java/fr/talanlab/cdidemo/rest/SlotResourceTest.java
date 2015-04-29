@@ -32,7 +32,9 @@ public class SlotResourceTest extends BaseTestConfig {
         final String slotId = "conf_room5_friday_14_9h30_10h30";
         final SlotService slots = app.getInstance(JavaEEEasy.class).getSlotService();
 
-        final String authorization = "Basic " + printBase64Binary("jonathan:secret".getBytes());
+        // cf: users.properties dans openejb-core.jar
+        final String authorization = "Basic " + printBase64Binary("bob:eponge".getBytes());
+        final String authorization2 = "Basic " + printBase64Binary("jonathan:secret".getBytes());
         final WebTarget client = ClientBuilder.newBuilder().build()
                 .target(container.getInstance(Container.class).getRoot().toExternalForm() + "app/rest/conferences/attendees");
 
@@ -52,10 +54,18 @@ public class SlotResourceTest extends BaseTestConfig {
         {
             Response response = client.path("{slot}").resolveTemplate("slot", "conf_room5_friday_14_9h30_10h30")
                     .request()
+                    .header("Authorization", authorization2)
+                    .get();
+            assertEquals(response.getStatus(), 200);
+            assertEquals(2, slots.count(slots.findById(slotId)));
+        }
+        {
+            Response response = client.path("{slot}").resolveTemplate("slot", "conf_room5_friday_14_9h30_10h30")
+                    .request()
                     .header("Authorization", authorization)
                     .delete();
             assertEquals(response.getStatus(), 200);
-            assertEquals(0, slots.count(slots.findById(slotId)));
+            assertEquals(1, slots.count(slots.findById(slotId)));
         }
     }
 }
