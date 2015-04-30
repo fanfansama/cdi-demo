@@ -6,6 +6,7 @@
           http://xmlns.jcp.org/xml/ns/javaee
           http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
+    <!-- Datasource JNDI-->
     <resource-ref>
         <description>DB Connection</description>
         <res-ref-name>jdbc/talanlab</res-ref-name>

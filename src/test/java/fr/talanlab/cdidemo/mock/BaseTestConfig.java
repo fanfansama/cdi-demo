@@ -1,6 +1,6 @@
 package fr.talanlab.cdidemo.mock;
 
-import fr.talanlab.cdidemo.jpa.service.ContentService;
+import fr.stepinfo.tomee.jpa.service.ContentService;
 import org.apache.openejb.core.security.SecurityServiceImpl;
 import org.apache.openejb.junit.ApplicationRule;
 import org.apache.openejb.junit.ContainerRule;

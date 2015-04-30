@@ -1,11 +1,12 @@
 package fr.talanlab.cdidemo.jpa.service;
 
 
+import fr.stepinfo.tomee.jpa.model.ContentEntity;
+import fr.stepinfo.tomee.jpa.model.UserEntity;
+import fr.stepinfo.tomee.jpa.service.ContentService;
+import fr.stepinfo.tomee.models.event.ContentEvent;
+import fr.stepinfo.tomee.producers.LoggerProducer;
 import fr.talanlab.cdidemo.DbCleaner;
-import fr.talanlab.cdidemo.jpa.model.ContentEntity;
-import fr.talanlab.cdidemo.jpa.model.UserEntity;
-import fr.talanlab.cdidemo.models.event.ContentEvent;
-import fr.talanlab.cdidemo.producers.LoggerProducer;
 import org.apache.openejb.core.security.SecurityServiceImpl;
 import org.apache.openejb.junit.ApplicationComposer;
 import org.apache.openejb.spi.SecurityService;

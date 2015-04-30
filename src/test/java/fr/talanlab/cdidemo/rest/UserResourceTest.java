@@ -1,8 +1,8 @@
 package fr.talanlab.cdidemo.rest;
 
 
-import fr.talanlab.cdidemo.jpa.model.ContentEntity;
-import fr.talanlab.cdidemo.jpa.service.ContentService;
+import fr.stepinfo.tomee.jpa.model.ContentEntity;
+import fr.stepinfo.tomee.jpa.service.ContentService;
 import fr.talanlab.cdidemo.mock.BaseTestConfig;
 import org.junit.Test;
 
