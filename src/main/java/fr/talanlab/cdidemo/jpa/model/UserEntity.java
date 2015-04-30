@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Version;
 import java.util.Collection;
 import java.util.HashSet;
@@ -14,25 +15,26 @@ import java.util.HashSet;
 @Entity
 @NamedQueries({
         @NamedQuery(
-                name = "Attendee.findAll",
-                query = "select a from AttendeeJpa a"),
+                name = "User.findAll",
+                query = "select a from UserEntity a"),
         @NamedQuery(
-                name = "Attendee.findByName",
-                query = "select a from AttendeeJpa a where a.name = :name"),
+                name = "User.findByName",
+                query = "select a from UserEntity a where a.name = :name"),
         @NamedQuery(
-                name = "Attendee.findByNameAndSlot",
-                query = "select count(a) from AttendeeJpa a where a.name = :name and :slot member of a.slot"
+                name = "User.findByNameAndContent",
+                query = "select count(a) from UserEntity a where a.name = :name and :content member of a.contents"
         ),
         @NamedQuery(
-                name = "Attendee.countBySlot",
-                query = "select count(a) from AttendeeJpa a where :slot member of a.slot"
+                name = "User.countByContent",
+                query = "select count(a) from UserEntity a where :content member of a.contents"
         ),
         @NamedQuery(
-                name = "Attendee.countGroupByAllSlot",
-                query = "select  s.id,count(a) from AttendeeJpa a inner join a.slot s group by s.id"
+                name = "User.countGroupByAllContent",
+                query = "select  s.id,count(a) from UserEntity a inner join a.contents s group by s.id"
         )
 })
-public class AttendeeJpa {
+@Table(name = "USER")
+public class UserEntity {
     @Id
     @GeneratedValue // would be better to use a table generator but we have only 3h
     private long id;
@@ -44,7 +46,7 @@ public class AttendeeJpa {
     private String name;
 
     @ManyToMany
-    private Collection<SlotJpa> slot;
+    private Collection<ContentEntity> contents;
 
     public long getId() {
         return id;
@@ -70,11 +72,11 @@ public class AttendeeJpa {
         this.name = name;
     }
 
-    public Collection<SlotJpa> getSlot() {
-        if (slot == null) {
-            slot = new HashSet<>();
+    public Collection<ContentEntity> getContents() {
+        if (contents == null) {
+            contents = new HashSet<>();
         }
-        return slot;
+        return contents;
     }
 
 }

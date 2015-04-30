@@ -4,8 +4,8 @@
     <persistence-unit name="talanLabUnit">
         <jta-data-source>movieDatabase</jta-data-source>
         <non-jta-data-source>jdbc/talanlab</non-jta-data-source>
-        <class>fr.talanlab.cdidemo.jpa.model.SlotJpa</class>
-        <class>fr.talanlab.cdidemo.jpa.model.AttendeeJpa</class>
+        <class>fr.talanlab.cdidemo.jpa.model.ContentEntity</class>
+        <class>fr.talanlab.cdidemo.jpa.model.UserEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>

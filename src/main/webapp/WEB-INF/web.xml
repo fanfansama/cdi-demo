@@ -6,12 +6,6 @@
           http://xmlns.jcp.org/xml/ns/javaee
           http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
-    <!--
-        <Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource"
-                  maxActive="100" maxIdle="30" maxWait="10000"
-                  username="javauser" password="javadude" driverClassName="com.mysql.jdbc.Driver"
-                  url="jdbc:mysql://localhost:3306/javatest"/>
-    -->
     <resource-ref>
         <description>DB Connection</description>
         <res-ref-name>jdbc/talanlab</res-ref-name>

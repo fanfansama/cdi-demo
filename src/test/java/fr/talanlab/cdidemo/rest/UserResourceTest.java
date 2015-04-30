@@ -1,8 +1,8 @@
 package fr.talanlab.cdidemo.rest;
 
 
-import fr.talanlab.cdidemo.jpa.model.SlotJpa;
-import fr.talanlab.cdidemo.jpa.service.SlotService;
+import fr.talanlab.cdidemo.jpa.model.ContentEntity;
+import fr.talanlab.cdidemo.jpa.service.ContentService;
 import fr.talanlab.cdidemo.mock.BaseTestConfig;
 import org.junit.Test;
 
@@ -13,59 +13,61 @@ import javax.ws.rs.core.Response;
 import static javax.xml.bind.DatatypeConverter.printBase64Binary;
 import static org.junit.Assert.assertEquals;
 
-public class SlotResourceTest extends BaseTestConfig {
+public class UserResourceTest extends BaseTestConfig {
+
+    public static final String JAVA_JEE = "java_jee";
 
 
     /*@Test
-    public void getConferences() {
+    public void getContents() {
         assertConferences(
                 ClientBuilder.newBuilder().build()
                         .register(new JohnzonProvider())
                         .target(container.getInstance(Container.class).getRoot().toExternalForm() + "app/rest/conferences")
                         .request(MediaType.APPLICATION_JSON_TYPE)
-                        .get(new GenericType<List<Slot>>() {
+                        .get(new GenericType<List<content>>() {
                         }));
     } */
 
     @Test
-    public void incrDecr() {
-        final String slotId = "conf_room5_friday_14_9h30_10h30";
-        final SlotService slots = app.getInstance(JavaEEEasy.class).getSlotService();
+    public void likeThenDislike() {
+        final String contentId = JAVA_JEE;
+        final ContentService contentService = app.getInstance(JavaEEEasy.class).getContentService();
 
         // cf: users.properties dans openejb-core.jar
         final String authorization = "Basic " + printBase64Binary("bob:eponge".getBytes());
         final String authorization2 = "Basic " + printBase64Binary("jonathan:secret".getBytes());
         final WebTarget client = ClientBuilder.newBuilder().build()
-                .target(container.getInstance(Container.class).getRoot().toExternalForm() + "app/rest/conferences/attendees");
+                .target(container.getInstance(Container.class).getRoot().toExternalForm() + "app/rest/user/like");
 
         {
-            slots.save(new SlotJpa(slotId));
-            final SlotJpa slot = slots.findById(slotId);
-            assertEquals(0, slots.count(slot));
+            contentService.save(new ContentEntity(contentId));
+            final ContentEntity content = contentService.findById(contentId);
+            assertEquals(0, contentService.count(content));
         }
         {
-            Response response = client.path("{slot}").resolveTemplate("slot", "conf_room5_friday_14_9h30_10h30")
+            Response response = client.path("{content}").resolveTemplate("content", JAVA_JEE)
                     .request()
                     .header("Authorization", authorization)
                     .get();
             assertEquals(response.getStatus(), 200);
-            assertEquals(1, slots.count(slots.findById(slotId)));
+            assertEquals(1, contentService.count(contentService.findById(contentId)));
         }
         {
-            Response response = client.path("{slot}").resolveTemplate("slot", "conf_room5_friday_14_9h30_10h30")
+            Response response = client.path("{content}").resolveTemplate("content", JAVA_JEE)
                     .request()
                     .header("Authorization", authorization2)
                     .get();
             assertEquals(response.getStatus(), 200);
-            assertEquals(2, slots.count(slots.findById(slotId)));
+            assertEquals(2, contentService.count(contentService.findById(contentId)));
         }
         {
-            Response response = client.path("{slot}").resolveTemplate("slot", "conf_room5_friday_14_9h30_10h30")
+            Response response = client.path("{content}").resolveTemplate("content", JAVA_JEE)
                     .request()
                     .header("Authorization", authorization)
                     .delete();
             assertEquals(response.getStatus(), 200);
-            assertEquals(1, slots.count(slots.findById(slotId)));
+            assertEquals(1, contentService.count(contentService.findById(contentId)));
         }
     }
 }

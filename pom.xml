@@ -24,13 +24,15 @@
         <javaee-api.version>7.0-SNAPSHOT</javaee-api.version>
         <tomee.version>2.0.0-SNAPSHOT</tomee.version>
         <openejb.version>5.0.0-SNAPSHOT</openejb.version>
-
         <commons-lang.version>2.4</commons-lang.version>
-
         <junit.version>4.12</junit.version>
 
-        <open-jpa.plugin>2.3.0</open-jpa.plugin>
+        <mysql.version>5.1.6</mysql.version>
 
+        <open-jpa.plugin>2.3.0</open-jpa.plugin>
+        <compiler.plugin>3.2</compiler.plugin>
+        <surefire.plugin>2.18</surefire.plugin>
+        <war.plugin>2.5</war.plugin>
     </properties>
 
     <dependencies>
@@ -64,18 +66,11 @@
 
     <build>
 
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/conf</directory>
-                <targetPath>${project.build.directory}/apache-tomee-embedded/conf</targetPath>
-            </resource>
-        </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18</version>
+                <version>${surefire.plugin}</version>
                 <configuration>
                     <!-- pour windows -->
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
@@ -89,7 +84,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
+                <version>${compiler.plugin}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -98,7 +93,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.5</version>
+                <version>${war.plugin}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
@@ -162,7 +157,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.6</version>
+                        <version>${mysql.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

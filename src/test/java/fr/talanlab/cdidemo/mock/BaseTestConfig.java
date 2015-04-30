@@ -1,6 +1,6 @@
 package fr.talanlab.cdidemo.mock;
 
-import fr.talanlab.cdidemo.jpa.service.SlotService;
+import fr.talanlab.cdidemo.jpa.service.ContentService;
 import org.apache.openejb.core.security.SecurityServiceImpl;
 import org.apache.openejb.junit.ApplicationRule;
 import org.apache.openejb.junit.ContainerRule;
@@ -44,10 +44,10 @@ public class BaseTestConfig {
     public static class JavaEEEasy {
 
         @Inject
-        private SlotService slotService;
+        private ContentService contentService;
 
-        public SlotService getSlotService() {
-            return slotService;
+        public ContentService getContentService() {
+            return contentService;
         }
 
     }

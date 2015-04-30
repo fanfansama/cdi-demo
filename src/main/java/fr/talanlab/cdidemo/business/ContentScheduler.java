@@ -1,8 +1,8 @@
 package fr.talanlab.cdidemo.business;
 
 
-import fr.talanlab.cdidemo.jpa.service.SlotService;
-import fr.talanlab.cdidemo.models.event.SlotUpdateEvent;
+import fr.talanlab.cdidemo.jpa.service.ContentService;
+import fr.talanlab.cdidemo.models.event.ContentEvent;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Lock;
@@ -21,31 +21,31 @@ import static javax.ejb.TransactionAttributeType.SUPPORTS;
 @Startup
 @Lock(READ)
 @TransactionAttribute(SUPPORTS)
-public class RetreiveSlotScheduler {
+public class ContentScheduler {
 
     @Inject
-    private Logger logger;
+    private Logger LOG;
 
     @Inject
-    private Event<SlotUpdateEvent> conferencesEvent;
+    private Event<ContentEvent> conferencesEvent;
 
     @Inject
-    private SlotService slotService;
+    private ContentService contentService;
 
     @PostConstruct
     private void init() {
         try {
-            updateConferences();
+            listContent();
         } catch (final Exception ignore) {
             // no-op: let's timer try later
-            logger.throwing(this.getClass().getName(), "@PostConstruct::init()", ignore);
+            LOG.throwing(this.getClass().getName(), "@PostConstruct::init()", ignore);
         }
     }
 
     @Lock(READ)
     @Schedule(hour = "*", minute = "*")
-    public void updateConferences() {
-        logger.fine("=== Schedule ===");
-        conferencesEvent.fire(new SlotUpdateEvent(slotService.findAll()));
+    public void listContent() {
+        LOG.fine("=== Schedule ===");
+        conferencesEvent.fire(new ContentEvent(contentService.findAll()));
     }
 }
