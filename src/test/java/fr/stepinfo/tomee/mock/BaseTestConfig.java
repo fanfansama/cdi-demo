@@ -1,4 +1,4 @@
-package fr.talanlab.cdidemo.mock;
+package fr.stepinfo.tomee.mock;
 
 import fr.stepinfo.tomee.jpa.service.ContentService;
 import org.apache.openejb.core.security.SecurityServiceImpl;

@@ -1,9 +1,9 @@
-package fr.talanlab.cdidemo.rest;
+package fr.stepinfo.tomee.rest;
 
 
 import fr.stepinfo.tomee.jpa.model.ContentEntity;
 import fr.stepinfo.tomee.jpa.service.ContentService;
-import fr.talanlab.cdidemo.mock.BaseTestConfig;
+import fr.stepinfo.tomee.mock.BaseTestConfig;
 import org.junit.Test;
 
 import javax.ws.rs.client.ClientBuilder;

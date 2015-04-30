@@ -1,4 +1,4 @@
-package fr.talanlab.cdidemo;
+package fr.stepinfo.tomee;
 
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
