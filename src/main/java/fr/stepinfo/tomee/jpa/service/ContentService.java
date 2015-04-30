@@ -9,7 +9,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.Collection;
@@ -22,7 +21,8 @@ import static java.util.stream.Collectors.toMap;
 
 @ApplicationScoped
 public class ContentService {
-    @PersistenceContext(unitName = "talanLabUnit")
+
+    @Inject
     private EntityManager em;
 
     @Inject
