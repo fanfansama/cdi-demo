@@ -5,14 +5,14 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Startup
 @Singleton
 public class DbCleaner {
-    @PersistenceContext(unitName = "talanLabUnit")
+
+    @Inject
     private EntityManager em;
 
     @Inject

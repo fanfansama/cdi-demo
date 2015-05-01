@@ -112,7 +112,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <includes>fr/talanlab/cdidemo/jpa/model/*.class</includes>
+                    <includes>fr/stepinfo/tomee/jpa/model/*.class</includes>
                     <addDefaultConstructor>true</addDefaultConstructor>
                     <persistenceXmlFile>${project.basedir}/src/main/webapp/WEB-INF/persistence.xml</persistenceXmlFile>
                 </configuration>
@@ -136,16 +136,16 @@
                     </users>
                     <inlinedTomEEXml>
                         <tomee>
-                            <Resource id="movieDatabase" type="DataSource">
+                            <Resource id="tomeeDatabase" type="DataSource">
                                 JdbcDriver = com.mysql.jdbc.Driver
-                                JdbcUrl = jdbc:mysql://localhost:3306/talanlab?createDatabaseIfNotExist=true
+                                JdbcUrl = jdbc:mysql://localhost:3306/tomeedemo?createDatabaseIfNotExist=true
                                 Username=root
                                 Password=
                             </Resource>
 
-                            <Resource id="movieDatabaseUnmanaged" type="DataSource">
+                            <Resource id="tomeeDatabaseUnmanaged" type="DataSource">
                                 JdbcDriver = com.mysql.jdbc.Driver
-                                JdbcUrl = jdbc:mysql://localhost:3306/talanlab?createDatabaseIfNotExist=true
+                                JdbcUrl = jdbc:mysql://localhost:3306/tomeedemo?createDatabaseIfNotExist=true
                                 username=root
                                 password=
                                 JtaManaged = false

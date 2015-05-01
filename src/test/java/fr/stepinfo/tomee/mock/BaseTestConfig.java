@@ -22,7 +22,7 @@ import java.security.Principal;
 public class BaseTestConfig {
     protected final ContainerRule container = new ContainerRule(new Container());
 
-    protected final ApplicationRule app = new ApplicationRule(new JavaEEEasy());
+    protected final ApplicationRule app = new ApplicationRule(new TomeeDemo());
 
     @Rule
     public final TestRule rule = RuleChain
@@ -40,8 +40,8 @@ public class BaseTestConfig {
     }
 
     @Default
-    @Classes(context = "app", cdi = true, excludes = "fr.talanlab.cdidemo.mock")
-    public static class JavaEEEasy {
+    @Classes(context = "app", cdi = true, excludes = "fr.stepinfo.tomee.mock")
+    public static class TomeeDemo {
 
         @Inject
         private ContentService contentService;

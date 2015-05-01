@@ -6,6 +6,7 @@ import fr.stepinfo.tomee.jpa.model.ContentEntity;
 import fr.stepinfo.tomee.jpa.model.UserEntity;
 import fr.stepinfo.tomee.models.event.ContentEvent;
 import fr.stepinfo.tomee.producers.LoggerProducer;
+import fr.stepinfo.tomee.producers.MySQLDatabaseProducer;
 import org.apache.openejb.core.security.SecurityServiceImpl;
 import org.apache.openejb.junit.ApplicationComposer;
 import org.apache.openejb.spi.SecurityService;
@@ -20,7 +21,6 @@ import org.junit.runner.RunWith;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import java.security.Principal;
 import java.util.Map;
@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(ApplicationComposer.class)
 @Classes(context = "app", cdi = true, value = {
-        ContentService.class, LoggerProducer.class, DbCleaner.class
+        ContentService.class, LoggerProducer.class, DbCleaner.class, MySQLDatabaseProducer.class
 })
 @Descriptors({
         @Descriptor(name = "persistence.xml", path = "src/main/webapp/WEB-INF/persistence.xml")
@@ -40,7 +40,9 @@ import static org.junit.Assert.assertNotNull;
         @ContainerProperties.Property(name = "db.JdbcUrl", value = "jdbc:hsqldb:mem:test")
 })
 public class ContentServiceTest {
-    @PersistenceContext(unitName = "talanLabUnit")
+
+    // @PersistenceContext(unitName = "tomeeDemoUnit")
+    @Inject
     private EntityManager em;
 
     @Inject

@@ -1,6 +1,5 @@
 package fr.stepinfo.tomee.rest;
 
-
 import fr.stepinfo.tomee.jpa.model.ContentEntity;
 import fr.stepinfo.tomee.jpa.service.ContentService;
 import fr.stepinfo.tomee.mock.BaseTestConfig;
@@ -32,7 +31,7 @@ public class UserResourceTest extends BaseTestConfig {
     @Test
     public void likeThenDislike() {
         final String contentId = JAVA_JEE;
-        final ContentService contentService = app.getInstance(JavaEEEasy.class).getContentService();
+        final ContentService contentService = app.getInstance(TomeeDemo.class).getContentService();
 
         // cf: users.properties dans openejb-core.jar
         final String authorization = "Basic " + printBase64Binary("bob:eponge".getBytes());
