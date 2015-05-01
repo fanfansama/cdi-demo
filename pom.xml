@@ -141,15 +141,9 @@
                                 JdbcUrl = jdbc:mysql://localhost:3306/tomeedemo?createDatabaseIfNotExist=true
                                 Username=root
                                 Password=
-                            </Resource>
-
-                            <Resource id="tomeeDatabaseUnmanaged" type="DataSource">
-                                JdbcDriver = com.mysql.jdbc.Driver
-                                JdbcUrl = jdbc:mysql://localhost:3306/tomeedemo?createDatabaseIfNotExist=true
-                                username=root
-                                password=
                                 JtaManaged = false
                             </Resource>
+
                         </tomee>
                     </inlinedTomEEXml>
                 </configuration>

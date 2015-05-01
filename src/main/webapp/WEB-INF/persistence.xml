@@ -2,8 +2,8 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="tomeeDemoUnit">
-        <jta-data-source>movieDatabase</jta-data-source>
-        <non-jta-data-source>tomeeDatabaseUnmanaged</non-jta-data-source>
+        <!-- <jta-data-source>tomeeDatabase</jta-data-source> -->
+        <non-jta-data-source>tomeeDatabase</non-jta-data-source>
         <class>fr.stepinfo.tomee.jpa.model.ContentEntity</class>
         <class>fr.stepinfo.tomee.jpa.model.UserEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>

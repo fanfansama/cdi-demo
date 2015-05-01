@@ -9,7 +9,7 @@
     <!-- Datasource JNDI-->
     <resource-ref>
         <description>DB Connection</description>
-        <res-ref-name>jdbc/talanlab</res-ref-name>
+        <res-ref-name>tomeeDatabase</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
